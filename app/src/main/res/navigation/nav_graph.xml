@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/LoginViewNav">
+
+    <fragment
+        android:id="@+id/LoginViewNav"
+        android:name="com.example.rattaggingapplication.LoginView"
+        android:label="Login View"
+        tools:layout="@layout/login_view">
+
+        <action
+            android:id="@+id/action_LoginView_to_RegisterForm"
+            app:destination="@id/RegisterFormNav" />
+
+        <action
+            android:id="@+id/action_LoginView_to_EventsViewNav"
+            app:destination="@+id/EventsViewNav" />
+    </fragment>
+    <fragment
+        android:id="@+id/RegisterFormNav"
+        android:name="com.example.rattaggingapplication.RegisterForm"
+        android:label="Register Form"
+        tools:layout="@layout/register_form">
+
+        <action
+            android:id="@+id/action_RegisterView_to_RatsRegisterView"
+            app:destination="@id/RatsRegisterFormNav" />
+    </fragment>
+    <fragment
+        android:id="@+id/RatsRegisterFormNav"
+        android:name="com.example.rattaggingapplication.RatsRegisterForm"
+        android:label="Rats Register Form"
+        tools:layout="@layout/rats_register_form">
+
+                <action
+                    android:id="@+id/action_RatsRegisterFormNav_to_EventsViewNav"
+                    app:destination="@+id/EventsViewNav" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/EventsViewNav"
+        android:name="com.example.rattaggingapplication.EventsView"
+        android:label="Events View"
+        tools:layout="@layout/events_view">
+
+                <action
+                    android:id="@+id/action_EventsViewNav_to_EventsListNav"
+                    app:destination="@+id/EventsListNav" />
+
+            <action
+                android:id="@+id/action_EventsViewNav_to_LoginView"
+                app:destination="@+id/LoginViewNav" />
+        <action
+            android:id="@+id/action_EventsViewNav_to_TagsViewNav"
+            app:destination="@+id/TagsViewNav" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/EventsListNav"
+        android:name="com.example.rattaggingapplication.EventsList"
+        android:label="Events List"
+        tools:layout="@layout/events_list">
+
+                <action
+                    android:id="@+id/action_EventsListNav_to_EventsViewNav"
+                    app:destination="@+id/EventsViewNav" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/TagsViewNav"
+        android:name="com.example.rattaggingapplication.TagsView"
+        android:label="Tags View"
+        tools:layout="@layout/tags_view">
+
+        <action
+            android:id="@+id/action_TagsViewNav_to_TagsListNav"
+            app:destination="@+id/TagsListNav" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/TagsListNav"
+        android:name="com.example.rattaggingapplication.TagsList"
+        android:label="Tags list"
+        tools:layout="@layout/tags_list">
+
+                <action
+                    android:id="@+id/action_TagsListNav_to_TagsViewNav"
+                    app:destination="@+id/TagsViewNav" />
+        <action
+            android:id="@+id/action_TagsListNav_to_EventsViewNav"
+            app:destination="@+id/EventsViewNav" />
+
+    </fragment>
+</navigation>

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/RegisterForm"
+    tools:context=".RegisterForm">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="-91dp"
+        tools:layout_editor_absoluteY="-177dp">
+
+        <TextView
+            android:id="@+id/reg_firstname_text"
+            android:layout_width="106dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="28dp"
+            android:text="first name"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/reg_confirm_password_text"
+            app:layout_constraintTop_toBottomOf="@+id/reg_confirm_password_text" />
+
+        <EditText
+            android:id="@+id/reg_city"
+            android:layout_width="266dp"
+            android:layout_height="45dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="@+id/reg_phone"
+            app:layout_constraintStart_toEndOf="@+id/reg_city_text"
+            app:layout_constraintTop_toTopOf="@+id/reg_city_text" />
+
+        <TextView
+            android:id="@+id/reg_city_text"
+            android:layout_width="106dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="28dp"
+            android:text="city"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/reg_phone_text"
+            app:layout_constraintTop_toBottomOf="@+id/reg_phone_text" />
+
+        <TextView
+            android:id="@+id/reg_phone_text"
+            android:layout_width="106dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="28dp"
+            android:text="phone"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/reg_email_text"
+            app:layout_constraintTop_toBottomOf="@+id/reg_email_text" />
+
+        <TextView
+            android:id="@+id/reg_lastname_text"
+            android:layout_width="106dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="20dp"
+            android:text="last name"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/reg_firstname_text"
+            app:layout_constraintTop_toBottomOf="@+id/reg_firstname_text" />
+
+        <EditText
+            android:id="@+id/reg_lastname"
+            android:layout_width="266dp"
+            android:layout_height="45dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="@+id/reg_firstname"
+            app:layout_constraintStart_toEndOf="@+id/reg_lastname_text"
+            app:layout_constraintTop_toTopOf="@+id/reg_lastname_text" />
+
+        <TextView
+            android:id="@+id/reg_email_text"
+            android:layout_width="106dp"
+            android:layout_height="45dp"
+            android:text="e-mail"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/reg_lastname_text"
+            app:layout_constraintTop_toBottomOf="@+id/reg_lastname_text"
+            app:layout_constraintVertical_bias="0.057" />
+
+        <EditText
+            android:id="@+id/reg_email"
+            android:layout_width="266dp"
+            android:layout_height="45dp"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/reg_lastname"
+            app:layout_constraintStart_toEndOf="@+id/reg_email_text"
+            app:layout_constraintTop_toTopOf="@+id/reg_email_text"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <EditText
+            android:id="@+id/reg_phone"
+            android:layout_width="266dp"
+            android:layout_height="45dp"
+            android:ems="10"
+            android:inputType="phone"
+            app:layout_constraintEnd_toEndOf="@+id/reg_email"
+            app:layout_constraintStart_toEndOf="@+id/reg_phone_text"
+            app:layout_constraintTop_toTopOf="@+id/reg_phone_text" />
+
+        <Button
+            android:id="@+id/register"
+            android:layout_width="205dp"
+            android:layout_height="92dp"
+            android:layout_marginTop="40dp"
+            android:text="register"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/reg_city"
+            app:layout_constraintHorizontal_bias="0.443"
+            app:layout_constraintStart_toStartOf="@+id/reg_city_text"
+            app:layout_constraintTop_toBottomOf="@+id/reg_city_text"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/reg_username_text"
+            android:layout_width="106dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="96dp"
+            android:text="username"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/reg_username"
+            android:layout_width="266dp"
+            android:layout_height="45dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/reg_username_text"
+            app:layout_constraintTop_toTopOf="@+id/reg_username_text" />
+
+        <TextView
+            android:id="@+id/reg_password_text"
+            android:layout_width="106dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="28dp"
+            android:text="password"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/reg_username_text"
+            app:layout_constraintTop_toBottomOf="@+id/reg_username_text" />
+
+        <EditText
+            android:id="@+id/reg_password"
+            android:layout_width="266dp"
+            android:layout_height="45dp"
+            android:ems="10"
+            android:inputType="textPassword"
+            app:layout_constraintStart_toEndOf="@+id/reg_password_text"
+            app:layout_constraintTop_toTopOf="@+id/reg_password_text" />
+
+        <TextView
+            android:id="@+id/reg_confirm_password_text"
+            android:layout_width="106dp"
+            android:layout_height="64dp"
+            android:layout_marginTop="24dp"
+            android:text="confirm password"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/reg_password_text"
+            app:layout_constraintTop_toBottomOf="@+id/reg_password_text" />
+
+        <EditText
+            android:id="@+id/reg_confirm_password"
+            android:layout_width="266dp"
+            android:layout_height="63dp"
+            android:layout_marginEnd="20dp"
+            android:ems="10"
+            android:inputType="textPassword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/reg_confirm_password_text"
+            app:layout_constraintTop_toTopOf="@+id/reg_confirm_password_text" />
+
+        <EditText
+            android:id="@+id/reg_firstname"
+            android:layout_width="266dp"
+            android:layout_height="45dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="@+id/reg_confirm_password"
+            app:layout_constraintStart_toEndOf="@+id/reg_firstname_text"
+            app:layout_constraintTop_toTopOf="@+id/reg_firstname_text" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

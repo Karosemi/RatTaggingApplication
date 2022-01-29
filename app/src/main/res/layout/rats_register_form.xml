@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/RatsRegisterForm"
+    tools:context=".RatsRegisterForm">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/rat_reg_container"
+        android:layout_width="367dp"
+        android:layout_height="322dp"
+        android:background="@color/purple_200"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.383" />
+
+    <TextView
+        android:id="@+id/rat_reg_sex_text"
+        android:layout_width="79dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/sex"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@+id/rat_reg_birth_text"
+        app:layout_constraintTop_toBottomOf="@+id/rat_reg_birth_text" />
+
+    <ImageView
+        android:id="@+id/rat_reg_field_sex"
+        android:layout_width="200dp"
+        android:layout_height="63dp"
+        app:layout_constraintStart_toEndOf="@+id/rat_reg_sex_text"
+        app:layout_constraintTop_toTopOf="@+id/rat_reg_sex_text"
+        app:srcCompat="@android:drawable/button_onoff_indicator_off"/>
+
+    <ImageView
+        android:id="@+id/rat_reg_field_birth"
+        android:layout_width="200dp"
+        android:layout_height="63dp"
+        app:layout_constraintEnd_toEndOf="@+id/rat_reg_field_name"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/rat_reg_birth_text"
+        app:layout_constraintTop_toTopOf="@+id/rat_reg_birth_text"
+        app:srcCompat="@android:drawable/button_onoff_indicator_off" />
+
+    <TextView
+        android:id="@+id/rat_reg_birth_text"
+        android:layout_width="78dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/birth_date"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@+id/rat_reg_name_text"
+        app:layout_constraintTop_toBottomOf="@+id/rat_reg_name_text" />
+
+    <TextView
+        android:id="@+id/rat_reg_name_text"
+        android:layout_width="79dp"
+        android:layout_height="63dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/name"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@+id/rat_reg_container"
+        app:layout_constraintTop_toTopOf="@+id/rat_reg_container" />
+
+    <ImageView
+        android:id="@+id/rat_reg_field_name"
+        android:layout_width="200dp"
+        android:layout_height="63dp"
+        app:layout_constraintEnd_toEndOf="@+id/rat_reg_container"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/rat_reg_name_text"
+        app:layout_constraintTop_toTopOf="@+id/rat_reg_name_text"
+        app:srcCompat="@android:drawable/button_onoff_indicator_off" />
+
+    <EditText
+        android:id="@+id/rat_reg_name"
+        android:layout_width="198dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toEndOf="@+id/rat_reg_name_text"
+        app:layout_constraintTop_toTopOf="@+id/rat_reg_field_name" />
+
+    <EditText
+        android:id="@+id/rat_reg_birth"
+        android:layout_width="197dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:inputType="date"
+        app:layout_constraintBottom_toBottomOf="@+id/rat_reg_field_birth"
+        app:layout_constraintEnd_toEndOf="@+id/rat_reg_field_birth"
+        app:layout_constraintStart_toStartOf="@+id/rat_reg_field_birth"
+        app:layout_constraintTop_toTopOf="@+id/rat_reg_field_birth" />
+
+    <Spinner
+        android:id="@+id/rat_reg_spinner"
+        android:layout_width="199dp"
+        android:layout_height="57dp"
+        app:layout_constraintBottom_toBottomOf="@+id/rat_reg_field_sex"
+        app:layout_constraintStart_toEndOf="@+id/rat_reg_sex_text"
+        app:layout_constraintTop_toTopOf="@+id/rat_reg_field_sex"/>
+
+    <Button
+        android:id="@+id/rat_reg_save"
+        android:layout_width="155dp"
+        android:layout_height="46dp"
+        android:text="@string/save"
+        app:layout_constraintBottom_toBottomOf="@+id/rat_reg_container"
+        app:layout_constraintEnd_toEndOf="@+id/rat_reg_field_sex"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toEndOf="@+id/rat_reg_sex_text"
+        app:layout_constraintTop_toBottomOf="@+id/rat_reg_sex_text"
+        app:layout_constraintVertical_bias="0.342" />
+
+    <ImageButton
+        android:id="@+id/rat_reg_exit"
+        android:layout_width="49dp"
+        android:layout_height="46dp"
+        app:layout_constraintBottom_toBottomOf="@+id/rat_reg_container"
+        app:layout_constraintEnd_toEndOf="@+id/rat_reg_container"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/rat_reg_field_name"
+        app:layout_constraintTop_toTopOf="@+id/rat_reg_container"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@android:drawable/btn_dialog" />
+
+    <Button
+        android:id="@+id/rats_register"
+        android:layout_width="226dp"
+        android:layout_height="62dp"
+        android:text="@string/register_rats"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.891" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rat_reg_rats_list"
+        android:layout_width="366dp"
+        android:layout_height="617dp"
+        android:layout_marginTop="104dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
