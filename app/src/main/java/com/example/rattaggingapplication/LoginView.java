@@ -39,6 +39,7 @@ public class LoginView extends Fragment {
         final EditText usernameEditText = binding.username;
         final EditText passwordEditText = binding.password;
         final Button loginButton = binding.login;
+        final Button registerButton = binding.loginRegister;
         super.onViewCreated(view, savedInstanceState);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,8 +49,19 @@ public class LoginView extends Fragment {
 
                 if  (!((username.isEmpty()) | (password.isEmpty()))){
                     NavHostFragment.findNavController(LoginView.this)
-                            .navigate(R.id.action_LoginView_to_RegisterForm);
+                            .navigate(R.id.action_LoginView_to_EventsViewNav);
                 }
+            }
+        });
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String username = usernameEditText.getText().toString();
+                String password = passwordEditText.getText().toString();
+
+                NavHostFragment.findNavController(LoginView.this)
+                            .navigate(R.id.action_LoginView_to_RegisterForm);
+
             }
         });
 
