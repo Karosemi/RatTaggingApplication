@@ -27,17 +27,22 @@
 
         <action
             android:id="@+id/action_RegisterView_to_RatsRegisterView"
-            app:destination="@id/RatsRegisterFormNav" />
+            app:destination="@id/RatsRegisterViewNav" />
     </fragment>
     <fragment
-        android:id="@+id/RatsRegisterFormNav"
-        android:name="com.example.rattaggingapplication.RatsRegisterForm"
-        android:label="Rats Register Form"
-        tools:layout="@layout/rats_register_form">
+        android:id="@+id/RatsRegisterViewNav"
+        android:name="com.example.rattaggingapplication.RatsRegisterView"
+        android:label="Rats Register View"
+        tools:layout="@layout/rat_register_view">
 
-                <action
-                    android:id="@+id/action_RatsRegisterFormNav_to_EventsViewNav"
-                    app:destination="@+id/EventsViewNav" />
+        <action
+            android:id="@+id/action_RatsRegisterViewNav_to_RatsRegisterFormNav"
+            app:destination="@+id/rats_register_form" />
+
+
+        <action
+            android:id="@+id/action_RatsRegisterFormNav_to_EventsViewNav"
+            app:destination="@+id/EventsViewNav" />
     </fragment>
 
     <fragment

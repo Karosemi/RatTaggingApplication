@@ -10,7 +10,6 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="save">save</string>
-    <string name="register_rats">register rats</string>
     <string name="event_name">Event name</string>
     <string name="password">password</string>
     <string name="username">username</string>
@@ -20,4 +19,10 @@
     <string name="sex">sex</string>
     <string name="register">register</string>
     <string name="login">login</string>
+    <string name="add_rat">Add rat</string>
+    <string name="register_rats">register rats</string>
+    <string-array name="rat_sex_array">
+        <item>female</item>
+        <item>male</item>
+    </string-array>
 </resources>

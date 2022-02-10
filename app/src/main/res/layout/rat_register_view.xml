@@ -4,8 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/RatsRegisterForm"
-    tools:context=".RatsRegisterForm">
+    android:id="@+id/RatsRegister"
+    tools:context=".RatsRegisterView">
+
+    <ListView
+        android:id="@+id/ratsList"
+        android:layout_width="214dp"
+        android:layout_height="444dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="@+id/addratButton"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addratButton" />
+
+    <Button
+        android:id="@+id/addratButton"
+        android:layout_width="213dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="64dp"
+        android:text="@string/add_rat"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/ratsRegisterButton"
+        android:layout_width="213dp"
+        android:layout_height="54dp"
+        android:text="@string/register_rats"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/addratButton"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/addratButton"
+        app:layout_constraintTop_toBottomOf="@+id/ratsList"
+        app:layout_constraintVertical_bias="0.232" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/rat_reg_container"
@@ -19,7 +54,9 @@
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.383" />
+        app:layout_constraintVertical_bias="0.383"
+
+        />
 
     <TextView
         android:id="@+id/rat_reg_sex_text"
@@ -38,7 +75,7 @@
         android:layout_height="63dp"
         app:layout_constraintStart_toEndOf="@+id/rat_reg_sex_text"
         app:layout_constraintTop_toTopOf="@+id/rat_reg_sex_text"
-        app:srcCompat="@android:drawable/button_onoff_indicator_off"/>
+        app:srcCompat="@android:drawable/button_onoff_indicator_off" />
 
     <ImageView
         android:id="@+id/rat_reg_field_birth"
@@ -110,7 +147,7 @@
         android:layout_height="57dp"
         app:layout_constraintBottom_toBottomOf="@+id/rat_reg_field_sex"
         app:layout_constraintStart_toEndOf="@+id/rat_reg_sex_text"
-        app:layout_constraintTop_toTopOf="@+id/rat_reg_field_sex"/>
+        app:layout_constraintTop_toTopOf="@+id/rat_reg_field_sex" />
 
     <Button
         android:id="@+id/rat_reg_save"
@@ -135,47 +172,5 @@
         app:layout_constraintTop_toTopOf="@+id/rat_reg_container"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@android:drawable/btn_dialog" />
-
-    <Button
-        android:id="@+id/rats_register"
-        android:layout_width="226dp"
-        android:layout_height="62dp"
-        android:text="@string/register_rats"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.891" />
-
-    <ListView
-        android:id="@+id/rats_list"
-        android:layout_width="379dp"
-        android:layout_height="592dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="122dp" />
-
-    <TextView
-        android:id="@+id/rats_text"
-        android:layout_width="121dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="4dp"
-        android:text="Rats List"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="@+id/_dynamic"
-        app:layout_constraintStart_toStartOf="@+id/rats_list"
-        tools:layout_editor_absoluteY="32dp" />
-
-    <Button
-        android:id="@+id/add_rat_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="add rat"
-        app:layout_constraintBottom_toTopOf="@+id/rats_list"
-        app:layout_constraintEnd_toEndOf="@+id/rats_text"
-        app:layout_constraintStart_toStartOf="@+id/rats_text"
-        app:layout_constraintTop_toBottomOf="@+id/rats_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
