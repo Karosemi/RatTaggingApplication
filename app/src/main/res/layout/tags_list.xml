@@ -7,44 +7,49 @@
     android:id="@+id/TagsList"
     tools:context=".TagsList">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/tags"
-        android:layout_width="317dp"
-        android:layout_height="483dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tags_list_exit_button" />
-
     <Button
         android:id="@+id/save_tag_list_button"
         android:layout_width="162dp"
         android:layout_height="48dp"
-        android:layout_marginStart="52dp"
-        android:text="save tag list"
-        app:layout_constraintBottom_toBottomOf="@+id/tag_list_back_button"
-        app:layout_constraintEnd_toEndOf="@+id/tags"
+        android:text="@string/save_tag_list"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/tagsListView"
+        app:layout_constraintHorizontal_bias="0.977"
         app:layout_constraintStart_toEndOf="@+id/tag_list_back_button"
-        app:layout_constraintTop_toTopOf="@+id/tag_list_back_button" />
+        app:layout_constraintTop_toBottomOf="@+id/tagsListView"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/tag_list_back_button"
         android:layout_width="100dp"
         android:layout_height="48dp"
-        android:layout_marginTop="52dp"
-        android:text="back"
+        android:layout_marginStart="16dp"
+        android:text="@string/back"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/tags"
-        app:layout_constraintTop_toBottomOf="@+id/tags"
+        app:layout_constraintStart_toStartOf="@+id/tagsListView"
+        app:layout_constraintTop_toBottomOf="@+id/tagsListView"
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
         android:id="@+id/tags_list_exit_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/tagsListView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@android:drawable/btn_dialog" />
+
+    <ListView
+        android:id="@+id/tagsListView"
+        android:layout_width="284dp"
+        android:layout_height="534dp"
+        android:layout_marginTop="116dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/repos/RatTaggingApplication/app/src/main/res/drawable/txt_view_bg.xml" value="0.23425925925925925" />
         <entry key="..\:/repos/RatTaggingApplication/app/src/main/res/layout/content_main.xml" value="0.22777777777777777" />
         <entry key="..\:/repos/RatTaggingApplication/app/src/main/res/layout/event_list.xml" value="0.3814814814814815" />
         <entry key="..\:/repos/RatTaggingApplication/app/src/main/res/layout/events_list.xml" value="0.3814814814814815" />
@@ -15,6 +16,7 @@
         <entry key="..\:/repos/RatTaggingApplication/app/src/main/res/layout/register_form.xml" value="0.33" />
         <entry key="..\:/repos/RatTaggingApplication/app/src/main/res/layout/tags_list.xml" value="0.3814814814814815" />
         <entry key="..\:/repos/RatTaggingApplication/app/src/main/res/layout/tags_view.xml" value="0.3814814814814815" />
+        <entry key="..\:/repos/RatTaggingApplication/app/src/main/res/layout/txt_view_bg.xml" value="0.2199074074074074" />
       </map>
     </option>
   </component>

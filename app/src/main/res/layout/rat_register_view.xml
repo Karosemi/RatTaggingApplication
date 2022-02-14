@@ -17,6 +17,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addratButton" />
 
+
+
     <Button
         android:id="@+id/addratButton"
         android:layout_width="213dp"

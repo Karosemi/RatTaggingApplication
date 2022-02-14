@@ -35,10 +35,6 @@
         android:label="Rats Register View"
         tools:layout="@layout/rat_register_view">
 
-        <action
-            android:id="@+id/action_RatsRegisterViewNav_to_RatsRegisterFormNav"
-            app:destination="@+id/rats_register_form" />
-
 
         <action
             android:id="@+id/action_RatsRegisterFormNav_to_EventsViewNav"
@@ -61,6 +57,9 @@
         <action
             android:id="@+id/action_EventsViewNav_to_TagsViewNav"
             app:destination="@+id/TagsViewNav" />
+        <action
+            android:id="@+id/action_EventsViewNav_to_RatsRegisterViewNav"
+            app:destination="@id/RatsRegisterViewNav" />
     </fragment>
 
 

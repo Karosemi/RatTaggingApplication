@@ -1,5 +1,6 @@
 package com.example.rattaggingapplication;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +11,18 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.rattaggingapplication.databinding.EventsViewBinding;
+import com.example.rattaggingapplication.db.tables.FeedEvents;
+import com.example.rattaggingapplication.db.tables.FeedUsers;
+import com.example.rattaggingapplication.register.Event;
+import com.google.android.material.snackbar.Snackbar;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import static com.example.rattaggingapplication.MainActivity.eventid;
+import static com.example.rattaggingapplication.MainActivity.sqlDataBaseHandler;
 public class EventsView extends Fragment {
-
+    private int userid = MainActivity.userid;
     private EventsViewBinding binding;
     @Override
     public View onCreateView(
@@ -26,11 +36,29 @@ public class EventsView extends Fragment {
     }
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        LocalDateTime now = LocalDateTime.now();
+        binding.date.setText(dtf.format(now));
         binding.confirmEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(EventsView.this)
-                        .navigate(R.id.action_EventsViewNav_to_TagsViewNav);
+                String eventName = binding.eventname.getText().toString();
+                if (!(eventName.isEmpty())){
+                    Event event = new Event();
+                    event.setDate(binding.date.toString());
+                    event.setName(eventName);
+                    event.setuserId(userid);
+                    sqlDataBaseHandler.addOneEvent(event);
+                    Cursor lastRow = sqlDataBaseHandler.getLastRowId(FeedEvents.FeedEntryEvents.TABLE_NAME);
+                    lastRow.moveToFirst();
+                    MainActivity.eventid = lastRow.getInt(0);
+                    NavHostFragment.findNavController(EventsView.this)
+                            .navigate(R.id.action_EventsViewNav_to_TagsViewNav);
+                }
+                else{
+                    Snackbar.make(view, "Event name is empty", Snackbar.LENGTH_LONG).show();
+                }
+
             }
         });
         binding.showEventsButton.setOnClickListener(new View.OnClickListener() {
@@ -45,6 +73,13 @@ public class EventsView extends Fragment {
             public void onClick(View view) {
                 NavHostFragment.findNavController(EventsView.this)
                         .navigate(R.id.action_EventsViewNav_to_LoginView);
+            }
+        });
+        binding.addRatsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(EventsView.this)
+                        .navigate(R.id.action_EventsViewNav_to_RatsRegisterViewNav);
             }
         });
 

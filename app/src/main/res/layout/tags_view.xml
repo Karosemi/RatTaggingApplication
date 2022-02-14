@@ -43,27 +43,17 @@
         app:layout_constraintTop_toTopOf="@+id/file_no_text"
         app:layout_constraintVertical_bias="0.0" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rat_list_view"
-        android:layout_width="228dp"
-        android:layout_height="182dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/tag_rats_text"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/tag_rats_text"
-        app:layout_constraintTop_toBottomOf="@+id/tag_rats_text" />
-
     <TextView
         android:id="@+id/description_text"
         android:layout_width="165dp"
         android:layout_height="34dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:text="Description"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="@+id/rat_list_view"
+        app:layout_constraintEnd_toEndOf="@+id/ratTagsListView"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/rat_list_view"
-        app:layout_constraintTop_toBottomOf="@+id/rat_list_view" />
+        app:layout_constraintStart_toStartOf="@+id/ratTagsListView"
+        app:layout_constraintTop_toBottomOf="@+id/ratTagsListView" />
 
     <TextView
         android:id="@+id/tag_rats_text"
@@ -134,5 +124,24 @@
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/emotions_spinner"
         app:layout_constraintTop_toBottomOf="@+id/emotions_spinner" />
+
+    <ListView
+        android:id="@+id/ratTagsListView"
+        android:layout_width="262dp"
+        android:layout_height="187dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/tag_rats_text"
+        android:drawSelectorOnTop="false"
+        android:listSelector="@android:color/darker_gray"
+        android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tag_rats_text"
+        app:layout_constraintTop_toBottomOf="@+id/tag_rats_text"
+
+        />
+
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

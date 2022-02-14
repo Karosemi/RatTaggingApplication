@@ -6,21 +6,20 @@ import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.rattaggingapplication.databinding.RatRegisterViewBinding;
-import com.example.rattaggingapplication.MainActivity;
+import com.example.rattaggingapplication.register.Rat;
+import com.google.android.material.snackbar.Snackbar;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Objects;
-
+import static com.example.rattaggingapplication.MainActivity.sqlDataBaseHandler;
 
 public class RatsRegisterView extends Fragment {
 
@@ -37,6 +36,8 @@ public class RatsRegisterView extends Fragment {
     }
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        int userid = MainActivity.userid;
+
         hideRatRegisterWindow();
         Context context = getActivity();
         ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(context,
@@ -44,43 +45,51 @@ public class RatsRegisterView extends Fragment {
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.ratRegSpinner.setAdapter(spinnerAdapter);
         ArrayList<String> listItems = new ArrayList<String>();
+        ArrayList<Rat> ratsList = new ArrayList<Rat>();
         ArrayAdapter<String> ratAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, listItems);
         binding.ratsList.setAdapter(ratAdapter);
-//        list = (ListView) findViewById(R.id.listView);
-//        arrayList = new ArrayList<String>();
 
-        // Adapter: You need three parameters 'the context, id of the layout (it will be where the data is shown),
-        // and the array that contains the data
-//        ArrayAdapter<String> ratsAdapater = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, arrayList);
-
-        // Here, you set the data in your ListView
-//        list.setAdapter(adapter);
-//        ListView ratslistView = binding.ratsList;
-//        binding.ratRegContainer.setVisibility(View.INVISIBLE);
         binding.addratButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 showRatRegisterWindow();
-//                binding.ratRegContainer.setVisibility(View.VISIBLE);
                 binding.addratButton.setVisibility(View.INVISIBLE);
+
+
+                binding.ratRegExit.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view){
+                        hideRatRegisterWindow();
+                        clearRegisterWindow();
+                        binding.addratButton.setVisibility(View.VISIBLE);
+                    }
+                });
+
                 binding.ratRegSave.setOnClickListener( new View.OnClickListener(){
                     @Override
                     public  void onClick(View view){
-//                        binding.ratRegContainer.setVisibility(View.INVISIBLE);
                         Editable ratName = binding.ratRegName.getText();
                         Editable ratDateBirth = binding.ratRegBirth.getText();
                         String ratSex = binding.ratRegSpinner.getSelectedItem().toString();
+                        if (ratName.toString().isEmpty()){
+                            Snackbar.make(view, "Add rat name", Snackbar.LENGTH_LONG).show();
+                        }
+                        else{
+                            Rat newRat = new Rat();
+                            newRat.setName(ratName.toString());
+                            newRat.setDateOfBirth(ratDateBirth.toString());
+                            newRat.setRatSex(ratSex);
+                            newRat.setuserId(userid);
+                            ratsList.add(newRat);
+                            listItems.add(ratName.toString());
+                            ratAdapter.notifyDataSetChanged();
+                            hideRatRegisterWindow();
+                            clearRegisterWindow();
+                            binding.addratButton.setVisibility(View.VISIBLE);
 
-//                        binding.ratsList.new.
-//                        String final_data = ratName
-                        listItems.add(ratName + ", "+ratDateBirth+", "+ratSex);
-                        ratAdapter.notifyDataSetChanged();
-//                        ratAdapter.add();
-                        hideRatRegisterWindow();
-                        clearRegisterWindow();
-//                        getActivity().getWindow().setSoftInputMode(
-//                                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-                        binding.addratButton.setVisibility(View.VISIBLE);
+                        }
+
+
                     }
                 });
             }}
@@ -90,6 +99,12 @@ public class RatsRegisterView extends Fragment {
         binding.ratsRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!(ratsList.isEmpty())){
+                    for (int i = 0; i < ratsList.size(); i++){
+                        sqlDataBaseHandler.addOneRat(ratsList.get(i));
+                    }
+                }
+
                 NavHostFragment.findNavController(RatsRegisterView.this)
                         .navigate(R.id.action_RatsRegisterFormNav_to_EventsViewNav);
             }
@@ -98,6 +113,9 @@ public class RatsRegisterView extends Fragment {
 
 
     private void showRatRegisterWindow(){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        LocalDateTime now = LocalDateTime.now();
+        binding.ratRegBirth.setText(dtf.format(now));
         changeVisibilityRegisterWindow("Visible"); }
 
 

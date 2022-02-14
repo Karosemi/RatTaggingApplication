@@ -13,18 +13,25 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.rattaggingapplication.databinding.MainActivityBinding;
 import com.example.rattaggingapplication.databinding.RatRegisterViewBinding;
+import com.example.rattaggingapplication.db.SqlDataBaseHandler;
 import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity {
+    public static int userid;
+    public static int eventid;
     private MainActivityBinding binding;
-    private RatRegisterViewBinding binding_b;
+    public static SqlDataBaseHandler sqlDataBaseHandler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        userid = -1;
+        eventid = -1;
         binding = MainActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        sqlDataBaseHandler = new SqlDataBaseHandler(this);
+        int oldVersion = 0;
+        int newVersion = 1;
+        sqlDataBaseHandler.onUpgrade(sqlDataBaseHandler.getWritableDatabase(), oldVersion, newVersion);
 
     }
     private void closeKeyboard() {
