@@ -3,6 +3,7 @@ package com.example.rattaggingapplication;
 import static android.content.Context.USER_SERVICE;
 
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,14 +13,15 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import com.example.rattaggingapplication.databinding.RegisterFormBinding;
+import com.example.rattaggingapplication.db.DbManager;
 import com.example.rattaggingapplication.db.tables.FeedUsers;
 import com.example.rattaggingapplication.register.User;
 import com.google.android.material.snackbar.Snackbar;
-import static com.example.rattaggingapplication.MainActivity.sqlDataBaseHandler;
 
 public class RegisterForm extends Fragment {
 
     private RegisterFormBinding binding;
+    private DbManager dbManager;
 
 
     @Override
@@ -36,7 +38,7 @@ public class RegisterForm extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        dbManager = new DbManager(this.getContext());
         binding.register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,9 +60,9 @@ public class RegisterForm extends Fragment {
                     String[] columnsToReturn = {FeedUsers.FeedEntryUsers.COLUMN_NAME_USERNAME};
                     String[] selectionArgs = { username };
                     String[] nextSelectionArgs = { email };
-                    Cursor nameCursor = sqlDataBaseHandler.getValuesFromTable(FeedUsers.FeedEntryUsers.TABLE_NAME, columnsToReturn, FeedUsers.FeedEntryUsers.COLUMN_NAME_USERNAME,
+                    Cursor nameCursor = dbManager.getValuesFromTable(FeedUsers.FeedEntryUsers.TABLE_NAME, columnsToReturn, FeedUsers.FeedEntryUsers.COLUMN_NAME_USERNAME,
                             selectionArgs);
-                    Cursor mailCursor = sqlDataBaseHandler.getValuesFromTable(FeedUsers.FeedEntryUsers.TABLE_NAME, columnsToReturn, FeedUsers.FeedEntryUsers.COLUMN_NAME_USERNAME,
+                    Cursor mailCursor = dbManager.getValuesFromTable(FeedUsers.FeedEntryUsers.TABLE_NAME, columnsToReturn, FeedUsers.FeedEntryUsers.COLUMN_NAME_USERNAME,
                             nextSelectionArgs);
                     if ((nameCursor.getCount()==0)&(mailCursor.getCount()==0) ){
                         User newUser = new User();
@@ -71,10 +73,10 @@ public class RegisterForm extends Fragment {
                         newUser.setEmail(email);
                         newUser.setPhone(phone);
                         newUser.setCity(city);
-                        sqlDataBaseHandler.addStandardUser(newUser);
+                        dbManager.addStandardUser(newUser);
                         String[] columnToReturn = {FeedUsers.FeedEntryUsers._ID};
 //                        String[] nextSelectionArgs = { email };
-                        Cursor idCursor = sqlDataBaseHandler.getValuesFromTable(FeedUsers.FeedEntryUsers.TABLE_NAME, columnToReturn, FeedUsers.FeedEntryUsers.COLUMN_NAME_USERNAME,
+                        Cursor idCursor = dbManager.getValuesFromTable(FeedUsers.FeedEntryUsers.TABLE_NAME, columnToReturn, FeedUsers.FeedEntryUsers.COLUMN_NAME_USERNAME,
                                 selectionArgs);
                         idCursor.moveToFirst();
                         int userId = idCursor.getInt(0);

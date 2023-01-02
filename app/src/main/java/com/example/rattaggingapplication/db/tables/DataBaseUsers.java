@@ -9,8 +9,6 @@ import com.example.rattaggingapplication.db.SqlDataBaseHandler;
 import com.example.rattaggingapplication.register.User;
 
 public class DataBaseUsers {
-
-
     private User createUserAdmin(){
 
         User adminUser = new User();
@@ -30,7 +28,4 @@ public class DataBaseUsers {
     public User getUserAdmin(){
         return createUserAdmin();
     }
-
-
-
 }

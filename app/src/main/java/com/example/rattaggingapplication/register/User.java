@@ -1,8 +1,6 @@
 package com.example.rattaggingapplication.register;
 
 public class User {
-
-
     private int id;
     private  String firstName;
     private String lastName;
@@ -10,8 +8,6 @@ public class User {
     private String phone;
     private String city;
     private int feedBack;
-
-
     private String username;
     private String password;
     private int accessType;

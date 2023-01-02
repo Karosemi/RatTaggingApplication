@@ -1,8 +1,8 @@
 package com.example.rattaggingapplication;
 
-import static com.example.rattaggingapplication.MainActivity.sqlDataBaseHandler;
 
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.rattaggingapplication.databinding.TagsListBinding;
+import com.example.rattaggingapplication.db.DbManager;
 import com.example.rattaggingapplication.db.tables.FeedEmotions;
 import com.example.rattaggingapplication.db.tables.FeedTags;
 import com.example.rattaggingapplication.db.tables.FeedUsers;
@@ -21,6 +22,7 @@ import com.example.rattaggingapplication.db.tables.FeedUsers;
 public class TagsList extends Fragment {
     private TagsListBinding binding;
     private int eventid = MainActivity.eventid;
+    private DbManager dbManager;
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -32,10 +34,11 @@ public class TagsList extends Fragment {
 
     }
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        dbManager = new DbManager(this.getContext());
         super.onViewCreated(view, savedInstanceState);
         String[] columnsToReturn = {FeedTags.FeedEntryTags._ID,FeedTags.FeedEntryTags.COLUMN_NAME_FILENAME, FeedTags.FeedEntryTags.COLUMN_NAME_EMOTIONS};
         String[] selectionArgs = {String.valueOf(eventid) };
-        Cursor tagCursor = sqlDataBaseHandler.getValuesFromTable(FeedTags.FeedEntryTags.TABLE_NAME, columnsToReturn, FeedTags.FeedEntryTags.COLUMN_NAME_EVENT_ID,
+        Cursor tagCursor = dbManager.getValuesFromTable(FeedTags.FeedEntryTags.TABLE_NAME, columnsToReturn, FeedTags.FeedEntryTags.COLUMN_NAME_EVENT_ID,
                 selectionArgs);
         SimpleCursorAdapter tagsadapter =
                 new SimpleCursorAdapter(this.getContext(), android.R.layout.simple_spinner_item, tagCursor,

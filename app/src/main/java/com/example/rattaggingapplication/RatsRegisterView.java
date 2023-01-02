@@ -13,17 +13,18 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.rattaggingapplication.databinding.RatRegisterViewBinding;
+import com.example.rattaggingapplication.db.DbManager;
 import com.example.rattaggingapplication.register.Rat;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import static com.example.rattaggingapplication.MainActivity.sqlDataBaseHandler;
 
 public class RatsRegisterView extends Fragment {
 
     private RatRegisterViewBinding binding;
+    private DbManager dbManager;
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -37,7 +38,7 @@ public class RatsRegisterView extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         int userid = MainActivity.userid;
-
+        dbManager = new DbManager(this.getContext());
         hideRatRegisterWindow();
         Context context = getActivity();
         ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(context,
@@ -101,7 +102,7 @@ public class RatsRegisterView extends Fragment {
             public void onClick(View view) {
                 if (!(ratsList.isEmpty())){
                     for (int i = 0; i < ratsList.size(); i++){
-                        sqlDataBaseHandler.addOneRat(ratsList.get(i));
+                        dbManager.addOneRat(ratsList.get(i));
                     }
                 }
 
@@ -153,9 +154,5 @@ public class RatsRegisterView extends Fragment {
         binding.ratRegName.setText("");
         binding.ratRegBirth.setText("");
     }
-
-
-
-
 
 }

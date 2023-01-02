@@ -2,6 +2,7 @@ package com.example.rattaggingapplication;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
@@ -15,10 +16,10 @@ import android.widget.SimpleCursorAdapter;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
-import static com.example.rattaggingapplication.MainActivity.sqlDataBaseHandler;
 import static com.example.rattaggingapplication.MainActivity.userid;
 
 import com.example.rattaggingapplication.databinding.TagsViewBinding;
+import com.example.rattaggingapplication.db.DbManager;
 import com.example.rattaggingapplication.db.tables.FeedAccess;
 import com.example.rattaggingapplication.db.tables.FeedEmotions;
 import com.example.rattaggingapplication.db.tables.FeedEvents;
@@ -34,6 +35,7 @@ public class TagsView extends Fragment {
     private SparseBooleanArray sp;
     private int tagidx = 0;
     private int eventid = MainActivity.eventid;
+    private DbManager dbManager;
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -47,11 +49,11 @@ public class TagsView extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Context context = getActivity();
-
+        dbManager = new DbManager(this.getContext());
         binding.fileNo.setText(String.valueOf(tagidx));
         String[] columnsToReturn = { FeedRats.FeedEntryRats._ID, FeedRats.FeedEntryRats.COLUMN_NAME_NAME};
         String[] selectionArgs = {String.valueOf(userid )};
-        Cursor ratsCursor = sqlDataBaseHandler.getValuesFromTable(FeedRats.FeedEntryRats.TABLE_NAME, columnsToReturn, FeedRats.FeedEntryRats.COLUMN_NAME_USER_ID,
+        Cursor ratsCursor = dbManager.getValuesFromTable(FeedRats.FeedEntryRats.TABLE_NAME, columnsToReturn, FeedRats.FeedEntryRats.COLUMN_NAME_USER_ID,
                 selectionArgs);
 
 
@@ -92,8 +94,7 @@ public class TagsView extends Fragment {
                 System.out.println(emotions);
                 String[] columnsToReturn = {FeedEmotions.FeedEntryEmotions._ID};
                 String[] selectionArgs = {emotions};
-
-                Cursor resultCursor = sqlDataBaseHandler.getValuesFromTable(FeedEmotions.FeedEntryEmotions.TABLE_NAME, columnsToReturn, FeedEmotions.FeedEntryEmotions.COLUMN_NAME_NAME,
+                Cursor resultCursor = dbManager.getValuesFromTable(FeedEmotions.FeedEntryEmotions.TABLE_NAME, columnsToReturn, FeedEmotions.FeedEntryEmotions.COLUMN_NAME_NAME,
                         selectionArgs);
                 resultCursor.moveToFirst();
                 int emotionId = resultCursor.getInt(0);
@@ -102,10 +103,10 @@ public class TagsView extends Fragment {
                 newtag.setFilename(fileNo);
                 newtag.setEmotions(emotionId);
                 newtag.setEventId(eventid);
-                sqlDataBaseHandler.addOneTag(newtag);
+                dbManager.addOneTag(newtag);
                 tagidx += 1;
                 binding.fileNo.setText(String.valueOf(tagidx));
-                Cursor lastRow = sqlDataBaseHandler.getLastRowId(FeedTags.FeedEntryTags.TABLE_NAME);
+                Cursor lastRow = dbManager.getLastRowId(FeedTags.FeedEntryTags.TABLE_NAME);
                 lastRow.moveToFirst();
                 int tagId =  lastRow.getInt(0);
                 String[] ratsColumnsToReturn = {FeedRats.FeedEntryRats._ID};
@@ -124,13 +125,13 @@ public class TagsView extends Fragment {
 
                     values = new String[]{String.valueOf(userid), ratItem.getString(1)};
 
-                    ratresultCursor1 = sqlDataBaseHandler.getTwoValuesFromTable(FeedRats.FeedEntryRats.TABLE_NAME,
+                    ratresultCursor1 = dbManager.getTwoValuesFromTable(FeedRats.FeedEntryRats.TABLE_NAME,
                             ratsColumnsToReturn, FeedRats.FeedEntryRats.COLUMN_NAME_USER_ID,
                             FeedRats.FeedEntryRats.COLUMN_NAME_NAME, values);
                     for (int k=0;k<ratresultCursor1.getCount();k++){
                         ratresultCursor1.moveToFirst();
                         int ratId = ratresultCursor1.getInt(k);
-                        sqlDataBaseHandler.addRatEvent(ratId, tagId);
+                        dbManager.addRatEvent(ratId, tagId);
                     }}
 
                 }}

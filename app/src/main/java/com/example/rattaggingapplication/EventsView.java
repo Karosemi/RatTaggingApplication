@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.rattaggingapplication.databinding.EventsViewBinding;
+import com.example.rattaggingapplication.db.DbManager;
 import com.example.rattaggingapplication.db.tables.FeedEvents;
 import com.example.rattaggingapplication.db.tables.FeedUsers;
 import com.example.rattaggingapplication.register.Event;
@@ -20,10 +21,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import static com.example.rattaggingapplication.MainActivity.eventid;
-import static com.example.rattaggingapplication.MainActivity.sqlDataBaseHandler;
 public class EventsView extends Fragment {
     private int userid = MainActivity.userid;
     private EventsViewBinding binding;
+    private DbManager dbManager;
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -36,6 +37,7 @@ public class EventsView extends Fragment {
     }
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        dbManager = new DbManager(this.getContext());
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         LocalDateTime now = LocalDateTime.now();
         binding.date.setText(dtf.format(now));
@@ -48,8 +50,8 @@ public class EventsView extends Fragment {
                     event.setDate(binding.date.toString());
                     event.setName(eventName);
                     event.setuserId(userid);
-                    sqlDataBaseHandler.addOneEvent(event);
-                    Cursor lastRow = sqlDataBaseHandler.getLastRowId(FeedEvents.FeedEntryEvents.TABLE_NAME);
+                    dbManager.addOneEvent(event);
+                    Cursor lastRow = dbManager.getLastRowId(FeedEvents.FeedEntryEvents.TABLE_NAME);
                     lastRow.moveToFirst();
                     MainActivity.eventid = lastRow.getInt(0);
                     NavHostFragment.findNavController(EventsView.this)

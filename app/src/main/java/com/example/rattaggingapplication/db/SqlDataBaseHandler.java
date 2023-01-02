@@ -11,14 +11,7 @@ import android.util.Log;
 import com.example.rattaggingapplication.db.tables.DataBaseUsers;
 import com.example.rattaggingapplication.db.tables.FeedAccess;
 import com.example.rattaggingapplication.db.tables.FeedEmotions;
-import com.example.rattaggingapplication.db.tables.FeedEvents;
-import com.example.rattaggingapplication.db.tables.FeedRatEvents;
-import com.example.rattaggingapplication.db.tables.FeedRats;
-import com.example.rattaggingapplication.db.tables.FeedTags;
 import com.example.rattaggingapplication.db.tables.FeedUsers;
-import com.example.rattaggingapplication.register.Event;
-import com.example.rattaggingapplication.register.Rat;
-import com.example.rattaggingapplication.register.Tag;
 import com.example.rattaggingapplication.register.User;
 
 public class SqlDataBaseHandler extends SQLiteOpenHelper {
@@ -26,27 +19,23 @@ public class SqlDataBaseHandler extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "rats";
 
-
-
     public SqlDataBaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+
         final DataBaseTables dbTables = new DataBaseTables();
-//        dbTables.dropTables(db);
         dbTables.createTables(db);
 
-
         if (dbTables.IsEmpty(db, FeedEmotions.FeedEntryEmotions.TABLE_NAME)){
-            addDataToTableEmotions();
+            addDataToTableEmotions(db);
         }
         if (dbTables.IsEmpty(db, FeedAccess.FeedEntryAccess.TABLE_NAME)){
-            addDataToTableAccess();
+            addDataToTableAccess(db);
         }
-        createUserAdmin();
-
+        createUserAdmin(db);
     }
 
     @Override
@@ -55,104 +44,29 @@ public class SqlDataBaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public Cursor getColumnDataFromTable( String tableName, String name){
-        SQLiteDatabase db = this.getReadableDatabase();
-        String sql = "SELECT " + name + " FROM " + tableName+";";
 
-        return db.rawQuery(sql, null);
 
-    }
-    public Cursor getDataFromTable( String tableName){
-        SQLiteDatabase db = this.getReadableDatabase();
-        String sql = "SELECT * FROM " + tableName+";";
-
-        return db.rawQuery(sql, null);
-
-    }
-    public void addOneTag(Tag tag){
-        addTag(tag);
-    }
-    private void addTag(Tag tag){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(FeedTags.FeedEntryTags.COLUMN_NAME_EMOTIONS, tag.getEmotions());
-        values.put(FeedTags.FeedEntryTags.COLUMN_NAME_DESCRIPTION, tag.getDescription());
-        values.put(FeedTags.FeedEntryTags.COLUMN_NAME_FILENAME, tag.getFlename());
-        values.put(FeedTags.FeedEntryTags.COLUMN_NAME_EVENT_ID, tag.getEventId());
-        Log.d(TAG, "addDataToInfoTable: Adding data to table " + FeedTags.FeedEntryTags.TABLE_NAME);
-        db.insert(FeedTags.FeedEntryTags.TABLE_NAME, null, values);
-    }
-
-    public void addRatEvent(int ratId, int tagId){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(FeedRatEvents.FeedEntryRatEvents.COLUMN_NAME_TAG_ID, tagId);
-        values.put(FeedRatEvents.FeedEntryRatEvents.COLUMN_NAME_RAT_ID, ratId);
-        Log.d(TAG, "addDataToInfoTable: Adding data to table " + FeedRatEvents.FeedEntryRatEvents.TABLE_NAME);
-        db.insert(FeedRatEvents.FeedEntryRatEvents.TABLE_NAME, null, values);
-    }
-    private void createUserAdmin(){
+    private void createUserAdmin(SQLiteDatabase db){
         DataBaseUsers dbUsers = new DataBaseUsers();
         User adminUser = dbUsers.getUserAdmin();
 
         System.out.println(adminUser.getUserName());
 
-        int accessId = this.getAccessId("full");
+        int accessId = this.getAccessId(db, "full");
 
         adminUser.setAccessType(accessId);
         String[] columnsToReturn = {FeedUsers.FeedEntryUsers.COLUMN_NAME_USERNAME};
         String[] selectionArgs = { adminUser.getUserName() };
 
-        Cursor resultCursor = getValuesFromTable(FeedUsers.FeedEntryUsers.TABLE_NAME, columnsToReturn, FeedUsers.FeedEntryUsers.COLUMN_NAME_USERNAME,
-                selectionArgs);
+        Cursor resultCursor = this.getValuesFromTable(db, FeedUsers.FeedEntryUsers.TABLE_NAME,
+                                    columnsToReturn, FeedUsers.FeedEntryUsers.COLUMN_NAME_USERNAME,
+                                        selectionArgs);
         if (resultCursor.getCount()==0){
-            this.addUser(adminUser);
+            this.addUser(db, adminUser);
         }
-
-
-    }
-    public Cursor getLastRowId(String tableName){
-        SQLiteDatabase db = this.getReadableDatabase();
-        String sql = "SELECT _ID FROM " + tableName + " ORDER BY _ID DESC LIMIT 1;";
-        return db.rawQuery(sql, null);
-    }
-    public void addStandardUser(User user){
-        int accessId = this.getAccessId("restricted");
-        user.setAccessType(accessId);
-        addUser(user);
-    }
-    public void addOneEvent(Event event){
-        addEvent(event);
     }
 
-    private void addEvent(Event event){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(FeedEvents.FeedEntryEvents.COLUMN_NAME_NAME, event.getName());
-        values.put(FeedEvents.FeedEntryEvents.COLUMN_NAME_DATE, event.getDate());
-        values.put(FeedEvents.FeedEntryEvents.COLUMN_NAME_USER_ID, event.getuserId());
-        Log.d(TAG, "addDataToInfoTable: Adding data to table " + FeedEvents.FeedEntryEvents.TABLE_NAME);
-        db.insert(FeedEvents.FeedEntryEvents.TABLE_NAME, null, values);
-
-    }
-
-    public void addOneRat(Rat rat){
-        addRat(rat);
-    }
-    private void addRat(Rat rat){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(FeedRats.FeedEntryRats.COLUMN_NAME_NAME, rat.getName());
-        values.put(FeedRats.FeedEntryRats.COLUMN_NAME_DATE_OF_BIRTH, rat.getDateOfBirth());
-        values.put(FeedRats.FeedEntryRats.COLUMN_NAME_USER_ID, rat.getuserId());
-        values.put(FeedRats.FeedEntryRats.COLUMN_NAME_SEX, rat.getRatSex());
-        Log.d(TAG, "addDataToInfoTable: Adding data to table " + FeedRats.FeedEntryRats.TABLE_NAME);
-        db.insert(FeedRats.FeedEntryRats.TABLE_NAME, null, values);
-
-    }
-
-    private void addUser(User user){
-        SQLiteDatabase db = this.getWritableDatabase();
+    private void addUser(SQLiteDatabase db, User user){
         ContentValues values = new ContentValues();
         values.put(FeedUsers.FeedEntryUsers.COLUMN_NAME_USERNAME, user.getUserName());
         values.put(FeedUsers.FeedEntryUsers.COLUMN_NAME_PASSWORD, user.getPassword());
@@ -168,40 +82,28 @@ public class SqlDataBaseHandler extends SQLiteOpenHelper {
     }
 
 
-    public Integer getAccessId(String accessType){
+
+
+    public Integer getAccessId(SQLiteDatabase db, String accessType){
         String[] columnsToReturn = {FeedAccess.FeedEntryAccess._ID};
         String[] selectionArgs = { accessType };
-        Cursor resultCursor = getValuesFromTable(FeedAccess.FeedEntryAccess.TABLE_NAME, columnsToReturn, FeedAccess.FeedEntryAccess.COLUMN_NAME_NAME,
+        Cursor resultCursor = this.getValuesFromTable(db, FeedAccess.FeedEntryAccess.TABLE_NAME,
+                                columnsToReturn, FeedAccess.FeedEntryAccess.COLUMN_NAME_NAME,
                 selectionArgs);
-
-//        System.out.println("dddhdhdhd" + resultCursor.getCount());
 
         resultCursor.moveToFirst();
         return resultCursor.getInt(0);
 
     }
 
-    public Cursor getTwoValuesFromTable(String tableName, String[] colsToReturn, String firstColumnSelection,
-                                        String SecondColumnSelection, String[] matchedValues){
-        SQLiteDatabase db = this.getReadableDatabase();
-//        String[] columnsToReturn = { "column_1", "column_2" };
-        String selection = firstColumnSelection + " =? AND "+SecondColumnSelection+"=?";
-//        String[] selectionArgs = { someValue }; // matched to "?" in selection
-        return db.query(tableName, colsToReturn, selection, matchedValues, null, null, null);
-    }
-
-    public Cursor getValuesFromTable(String tableName, String[] colsToReturn, String columnSelection, String[] matchedValues){
-        SQLiteDatabase db = this.getReadableDatabase();
-//        String[] columnsToReturn = { "column_1", "column_2" };
+    public Cursor getValuesFromTable(SQLiteDatabase db, String tableName, String[] colsToReturn, String columnSelection, String[] matchedValues){
         String selection = columnSelection + " =?";
-//        String[] selectionArgs = { someValue }; // matched to "?" in selection
         return db.query(tableName, colsToReturn, selection, matchedValues, null, null, null);
     }
 
 
 
-    private void addDataToTableEmotions(){
-        SQLiteDatabase db = this.getWritableDatabase();
+    private void addDataToTableEmotions(SQLiteDatabase db){
         String positive = "positive";
         String negative = "negative";
         String neutral = "neutral";
@@ -220,8 +122,7 @@ public class SqlDataBaseHandler extends SQLiteOpenHelper {
 
     }
 
-    private void addDataToTableAccess(){
-        SQLiteDatabase db = this.getWritableDatabase();
+    private void addDataToTableAccess(SQLiteDatabase db){
         String full = "full";
         String restricted = "restricted";
         ContentValues values = new ContentValues();

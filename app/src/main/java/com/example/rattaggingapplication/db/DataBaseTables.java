@@ -16,8 +16,6 @@ import com.example.rattaggingapplication.db.tables.FeedUsers;
 
 
 public class DataBaseTables {
-
-
     private static final String SQL_DATABASE_USERS =
             // visible only for admin
             "CREATE TABLE IF NOT EXISTS " + FeedUsers.FeedEntryUsers.TABLE_NAME + " (" +
